@@ -1,0 +1,1 @@
+#  code for configurations and settings of the application
