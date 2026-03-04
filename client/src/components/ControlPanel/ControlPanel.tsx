@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { sendControlCommand } from "../../services/api";
+import { useState } from "react";
 import "../../App.css";
+import { sendControlCommand } from "../../services/api";
 
 export const ControlPanel = ({ userId }: { userId: string | null }) => {
   const [isCollecting, setIsCollecting] = useState(false);

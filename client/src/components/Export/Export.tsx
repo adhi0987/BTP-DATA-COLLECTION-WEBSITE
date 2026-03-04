@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { fetchUserData } from '../../services/api';
+import { useState } from 'react';
 import '../../App.css';
+import { fetchUserData } from '../../services/api';
 
 export const Export = ({ userId }: { userId: string | null }) => {
     const [isLoading, setIsLoading] = useState(false);

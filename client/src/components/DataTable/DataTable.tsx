@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { fetchUserData, updateDataLabel } from "../../services/api";
+import { useEffect, useState } from "react";
 import "../../App.css";
+import { fetchUserData, updateDataLabel } from "../../services/api";
 
 interface DataRow {
   id: number;

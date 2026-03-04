@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { UserForm } from '../components/UserForm/UserForm';
 import { ControlPanel } from '../components/ControlPanel/ControlPanel';
 import { DataTable } from '../components/DataTable/DataTable';
 import { Export } from '../components/Export/Export';
+import { UserForm } from '../components/UserForm/UserForm';
 
 export const Dashboard: React.FC = () => {
     const [activeUserId, setActiveUserId] = useState<string | null>(null);

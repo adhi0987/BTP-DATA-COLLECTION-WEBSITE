@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { createUser } from '../../services/api';
 import '../../App.css';
+import { createUser } from '../../services/api';
 
 export const UserForm = ({ onUserCreated }: { onUserCreated: (id: string) => void }) => {
     const [formData, setFormData] = useState({ age: '', height: '', health_condition: '' });
