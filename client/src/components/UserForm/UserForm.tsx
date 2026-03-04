@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { createUser } from '../../services/api';
+import '../../App.css';
 
-interface UserFormProps {
-    onUserCreated: (id: string) => void;
-}
-
-export const UserForm: React.FC<UserFormProps> = ({ onUserCreated }) => {
+export const UserForm = ({ onUserCreated }: { onUserCreated: (id: string) => void }) => {
     const [formData, setFormData] = useState({ age: '', height: '', health_condition: '' });
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setIsLoading(true);
         try {
             const res = await createUser({
                 age: Number(formData.age),
@@ -21,25 +20,63 @@ export const UserForm: React.FC<UserFormProps> = ({ onUserCreated }) => {
         } catch (error) {
             console.error(error);
             alert("Failed to save user.");
+        } finally {
+            setIsLoading(false);
         }
     };
 
     return (
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px', maxWidth: '300px', padding: '20px', border: '1px solid #ccc', borderRadius: '8px' }}>
-            <h3>Sample Information</h3>
-            <div>
-                <label>Age:</label><br/>
-                <input type="number" required value={formData.age} onChange={e => setFormData({...formData, age: e.target.value})} style={{ width: '100%' }} />
-            </div>
-            <div>
-                <label>Height (cm):</label><br/>
-                <input type="number" required value={formData.height} onChange={e => setFormData({...formData, height: e.target.value})} style={{ width: '100%' }} />
-            </div>
-            <div>
-                <label>Health Conditions:</label><br/>
-                <input type="text" placeholder="e.g., none" value={formData.health_condition} onChange={e => setFormData({...formData, health_condition: e.target.value})} style={{ width: '100%' }} />
-            </div>
-            <button type="submit" style={{ padding: '10px', cursor: 'pointer' }}>Save & Initialize</button>
-        </form>
+        <div className="form-card fade-in">
+            <h3 className="section-title">1. Subject Information</h3>
+            <form onSubmit={handleSubmit}>
+                <div className="form-group">
+                    <label htmlFor="age">Age</label>
+                    <input 
+                        id="age"
+                        type="number" 
+                        placeholder="Enter age" 
+                        required 
+                        value={formData.age} 
+                        onChange={e => setFormData({...formData, age: e.target.value})}
+                        className="form-input"
+                        min="1"
+                        max="150"
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="height">Height (cm)</label>
+                    <input 
+                        id="height"
+                        type="number" 
+                        placeholder="Enter height in cm" 
+                        required 
+                        value={formData.height} 
+                        onChange={e => setFormData({...formData, height: e.target.value})}
+                        className="form-input"
+                        min="1"
+                        max="300"
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="health_condition">Health Conditions (Optional)</label>
+                    <input 
+                        id="health_condition"
+                        type="text" 
+                        placeholder="e.g., None, Diabetes, Hypertension" 
+                        value={formData.health_condition} 
+                        onChange={e => setFormData({...formData, health_condition: e.target.value})}
+                        className="form-input"
+                    />
+                </div>
+                <button 
+                    type="submit" 
+                    className="btn-submit"
+                    disabled={isLoading}
+                >
+                    {isLoading ? 'Saving...' : 'Save & Initialize'}
+                </button>
+            </form>
+        </div>
     );
 };
+
